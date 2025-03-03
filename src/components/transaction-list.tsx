@@ -120,7 +120,7 @@ export const TransactionList: React.FC<TransactionListProps> = ({
     return (
       <div className="p-4 max-w-md mx-auto text-center">
         <Loader2 className="h-8 w-8 animate-spin mx-auto text-gray-500" />
-        <p className="mt-2 text-gray-500">Loading transactions...</p>
+        <p className="mt-2 text-gray-500">Cargando movimientos...</p>
       </div>
     );
   }
@@ -130,7 +130,7 @@ export const TransactionList: React.FC<TransactionListProps> = ({
       <div className="p-4 max-w-md mx-auto">
         <div className="bg-red-50 p-4 rounded-lg border border-red-200">
           <h3 className="text-red-800 font-medium">
-            Error loading transactions
+            Error cargando movimientos
           </h3>
           <p className="text-red-600 text-sm mt-1">{error}</p>
         </div>

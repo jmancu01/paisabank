@@ -31,7 +31,7 @@ const PaisbankCardCarousel: React.FC<PaisbankCardCarouselProps> = ({
           setError(`${response.error}: ${response.message}`);
         }
       } catch (err) {
-        setError('Failed to load cards. Please try again later.');
+        setError('Error al cargar las tarjetas. Por favor intente más tarde.');
         console.error('Error fetching cards:', err);
       } finally {
         setLoading(false);
@@ -96,7 +96,7 @@ const PaisbankCardCarousel: React.FC<PaisbankCardCarouselProps> = ({
       <div className="w-full max-w-md mx-auto p-8 text-center">
         <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
           <h3 className="text-red-800 font-medium">
-            Unable to load your cards
+            No se pudieron cargar sus tarjetas
           </h3>
           <p className="text-red-700 mt-1">{error}</p>
         </div>
@@ -104,7 +104,7 @@ const PaisbankCardCarousel: React.FC<PaisbankCardCarouselProps> = ({
           onClick={() => window.location.reload()}
           className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
         >
-          Try Again
+          Intentar de nuevo
         </button>
       </div>
     );
@@ -114,12 +114,12 @@ const PaisbankCardCarousel: React.FC<PaisbankCardCarouselProps> = ({
     return (
       <div className="w-full max-w-md mx-auto p-8 text-center">
         <div className="bg-gray-50 border border-gray-200 rounded-lg p-8">
-          <h3 className="text-gray-800 font-medium text-lg">No cards found</h3>
-          <p className="text-gray-600 mt-2">
-            You don&apos;t have any cards yet.
-          </p>
+          <h3 className="text-gray-800 font-medium text-lg">
+            No se encontraron tarjetas
+          </h3>
+          <p className="text-gray-600 mt-2">Aún no tienes ninguna tarjeta.</p>
           <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-            Add New Card
+            Agregar nueva tarjeta
           </button>
         </div>
       </div>
@@ -165,7 +165,7 @@ const PaisbankCardCarousel: React.FC<PaisbankCardCarouselProps> = ({
                   : 'w-2 bg-gray-300'
               }`}
               onClick={() => scrollToCardIndex(index)}
-              aria-label={`Go to card ${index + 1}`}
+              aria-label={`Ir a la tarjeta ${index + 1}`}
             />
           ))}
         </div>
@@ -176,7 +176,7 @@ const PaisbankCardCarousel: React.FC<PaisbankCardCarouselProps> = ({
         <button
           className="absolute left-0 top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full p-2 ml-2"
           onClick={scrollToPrevCard}
-          aria-label="Previous card"
+          aria-label="Tarjeta anterior"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -199,7 +199,7 @@ const PaisbankCardCarousel: React.FC<PaisbankCardCarouselProps> = ({
         <button
           className="absolute right-0 top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full p-2 mr-2"
           onClick={scrollToNextCard}
-          aria-label="Next card"
+          aria-label="Siguiente tarjeta"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

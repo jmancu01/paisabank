@@ -8,7 +8,7 @@ export default function Movements() {
   return (
     <div className="pb-16">
       <TransactionList
-        title="All Transactions"
+        title="Movimientos"
         limit={10}
         enableSearch={true}
         enableFilters={true}
