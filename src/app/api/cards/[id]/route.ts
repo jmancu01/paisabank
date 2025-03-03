@@ -7,12 +7,14 @@ import {
   createErrorResponse,
   createSuccessResponse,
 } from '@/lib/supabase/types/api-response';
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+
+export type Params = { params: Promise<{ id: string }> };
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+  { params }: Params
+): Promise<NextResponse> {
   try {
     const authError = await verifyAuth(req);
 
@@ -27,7 +29,7 @@ export async function GET(
     const authenticatedReq = req as AuthenticatedRequest;
     const userId = authenticatedReq.user.id;
 
-    const cardId = parseInt(params.id, 10);
+    const cardId = parseInt((await params).id, 10);
     if (isNaN(cardId)) {
       return createErrorResponse(400, 'Invalid card ID');
     }
@@ -51,8 +53,8 @@ export async function GET(
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+  { params }: Params
+): Promise<NextResponse> {
   try {
     const authError = await verifyAuth(req);
 
@@ -67,7 +69,7 @@ export async function PATCH(
     const authenticatedReq = req as AuthenticatedRequest;
     const userId = authenticatedReq.user.id;
 
-    const cardId = parseInt(params.id, 10);
+    const cardId = parseInt((await params).id, 10);
     if (isNaN(cardId)) {
       return createErrorResponse(400, 'Invalid card ID');
     }
@@ -99,5 +101,3 @@ export async function PATCH(
     );
   }
 }
-
-export type Params = { params: { id: string } };
