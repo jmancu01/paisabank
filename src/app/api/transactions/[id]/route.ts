@@ -1,5 +1,4 @@
 // app/api/transactions/[id]/route.ts
-
 import {
   AuthenticatedRequest,
   verifyAuth,
@@ -9,12 +8,13 @@ import {
   createErrorResponse,
   createSuccessResponse,
 } from '@/lib/supabase/types/api-response';
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
+export type Params = { params: Promise<{ id: string }> };
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+  { params }: Params
+): Promise<NextResponse> {
   try {
     const authError = await verifyAuth(req);
 
@@ -30,7 +30,7 @@ export async function GET(
     const userId = authenticatedReq.user.id;
 
     // Validate and parse the transaction ID
-    const transactionId = parseInt(params.id, 10);
+    const transactionId = parseInt((await params).id, 10);
     if (isNaN(transactionId)) {
       return createErrorResponse(400, 'Invalid transaction ID');
     }
@@ -59,10 +59,7 @@ export async function GET(
   }
 }
 
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function PUT(req: NextRequest, { params }: Params) {
   try {
     const authError = await verifyAuth(req);
 
@@ -78,7 +75,7 @@ export async function PUT(
     const userId = authenticatedReq.user.id;
 
     // Validate and parse the transaction ID
-    const transactionId = parseInt(params.id, 10);
+    const transactionId = parseInt((await params).id, 10);
     if (isNaN(transactionId)) {
       return createErrorResponse(400, 'Invalid transaction ID');
     }
