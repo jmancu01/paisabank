@@ -1,4 +1,3 @@
-// app/api/cards/[id]/route.ts
 import {
   AuthenticatedRequest,
   verifyAuth,
@@ -28,13 +27,11 @@ export async function GET(
     const authenticatedReq = req as AuthenticatedRequest;
     const userId = authenticatedReq.user.id;
 
-    // Validate and parse the card ID
     const cardId = parseInt(params.id, 10);
     if (isNaN(cardId)) {
       return createErrorResponse(400, 'Invalid card ID');
     }
 
-    // Fetch the card
     const card = await cardsService.getCardById(cardId, userId);
 
     if (!card) {
@@ -70,13 +67,11 @@ export async function PATCH(
     const authenticatedReq = req as AuthenticatedRequest;
     const userId = authenticatedReq.user.id;
 
-    // Validate and parse the card ID
     const cardId = parseInt(params.id, 10);
     if (isNaN(cardId)) {
       return createErrorResponse(400, 'Invalid card ID');
     }
 
-    // Parse the request body
     let updateData;
     try {
       updateData = await req.json();
@@ -84,7 +79,6 @@ export async function PATCH(
       return createErrorResponse(400, `Invalid request body ${parseError}`);
     }
 
-    // Update the card
     const updatedCard = await cardsService.updateCard(
       cardId,
       userId,
@@ -105,3 +99,5 @@ export async function PATCH(
     );
   }
 }
+
+export type Params = { params: { id: string } };
