@@ -8,12 +8,8 @@ type CardParams = {
   id: string;
 };
 
-export default function CardById({
-  params,
-}: {
-  params: CardParams | Promise<CardParams>;
-}) {
-  const unwrappedParams = use(params as Promise<CardParams>) as CardParams;
+export default function CardById({ params }: { params: Promise<CardParams> }) {
+  const unwrappedParams = use(params);
 
   return (
     <div className="flex flex-col min-h-screen">
