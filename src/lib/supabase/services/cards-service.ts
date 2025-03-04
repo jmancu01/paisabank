@@ -9,11 +9,9 @@ export const cardsService = {
    */
   async getUserCards(userId: string): Promise<Card[]> {
     try {
-      const { data, error } = await supabase
-        .from('cards')
-        .select('*')
-        .eq('user', userId);
-
+      const query = supabase.from('cards').select('*').eq('user', userId);
+      const response = await query;
+      const { data, error } = response;
       if (error) {
         console.error('Error fetching user cards:', error);
         throw error;

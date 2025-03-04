@@ -37,6 +37,7 @@ export default function CardForm({
   const [formData, setFormData] = useState<Partial<Card>>({
     ...initialData,
     expiry_date: formatExpiryDate(initialData.expiry_date as string),
+    issuer: initialData.issuer || 'VISA', // Set default value for issuer
   });
 
   useEffect(() => {
@@ -44,6 +45,7 @@ export default function CardForm({
       setFormData({
         ...initialData,
         expiry_date: formatExpiryDate(initialData.expiry_date as string),
+        issuer: initialData.issuer || 'VISA', // Ensure issuer has default value on initial data change
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,6 +65,11 @@ export default function CardForm({
     e.preventDefault();
 
     const processedData = { ...formData };
+
+    // Ensure issuer has a value before submission
+    if (!processedData.issuer) {
+      processedData.issuer = 'VISA';
+    }
 
     if (processedData.expiry_date) {
       const parts = processedData.expiry_date.split('/');
@@ -94,7 +101,7 @@ export default function CardForm({
               {/* Top row with balance label and card brand */}
               <div className="flex justify-between items-start mb-2">
                 <span className="text-white text-sm font-medium">Balance</span>
-                {getIssuerIcon(formData.issuer || '')}
+                {getIssuerIcon(formData.issuer || 'VISA')}
               </div>
 
               {/* Balance amount */}
@@ -189,7 +196,7 @@ export default function CardForm({
               className="appearance-none border border-gray-300 rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
               id="issuer"
               name="issuer"
-              value={formData.issuer || ''}
+              value={formData.issuer || 'VISA'}
               onChange={handleInputChange}
               required
             >

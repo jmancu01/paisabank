@@ -1,12 +1,13 @@
 export interface Card {
   id: number;
-  created_at: Date;
+  created_at?: Date;
   balance: number;
   card_number: number;
   name: string;
   expiry_date: string;
   currency: string; // Defaults to 'USD'
   issuer: string;
+  user: string;
 }
 
 export enum TransactionType {
