@@ -1,13 +1,12 @@
-// app/auth/confirm/page.tsx
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import type { Database } from '@/lib/supabase/types/database';
 import { EmailOtpType } from '@supabase/supabase-js';
 
-export default function ConfirmEmail() {
+function ConfirmEmailContent() {
   const [verifying, setVerifying] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -72,5 +71,20 @@ export default function ConfirmEmail() {
     <div className="flex items-center justify-center min-h-screen">
       <p className="text-lg">Email verified! Redirecting...</p>
     </div>
+  );
+}
+
+// This is the main page component that includes the Suspense boundary
+export default function ConfirmEmailPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center min-h-screen">
+          Loading...
+        </div>
+      }
+    >
+      <ConfirmEmailContent />
+    </Suspense>
   );
 }
