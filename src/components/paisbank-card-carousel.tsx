@@ -4,6 +4,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import PaisbankCard from './paisbank-card';
 import { Card } from '@/lib/supabase/types/tables';
 import { cardsClient } from '@/lib/supabase/services/cards-client';
+import { useRouter } from 'next/navigation';
 
 interface PaisbankCardCarouselProps {
   initialCards?: Card[];
@@ -17,6 +18,7 @@ const PaisbankCardCarousel: React.FC<PaisbankCardCarouselProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchCards = async () => {
@@ -118,7 +120,10 @@ const PaisbankCardCarousel: React.FC<PaisbankCardCarouselProps> = ({
             No se encontraron tarjetas
           </h3>
           <p className="text-gray-600 mt-2">Aún no tienes ninguna tarjeta.</p>
-          <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+          <button
+            onClick={() => router.push('/cards/create')}
+            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
             Agregar nueva tarjeta
           </button>
         </div>
